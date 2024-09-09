@@ -9,17 +9,17 @@ const dockerHub = "https://registry-1.docker.io";
 
 const routes = {
   // production
-  "docker.libcuda.so": dockerHub,
-  "quay.libcuda.so": "https://quay.io",
-  "gcr.libcuda.so": "https://gcr.io",
-  "k8s-gcr.libcuda.so": "https://k8s.gcr.io",
-  "k8s.libcuda.so": "https://registry.k8s.io",
-  "ghcr.libcuda.so": "https://ghcr.io",
-  "cloudsmith.libcuda.so": "https://docker.cloudsmith.io",
-  "ecr.libcuda.so": "https://public.ecr.aws",
+  "docker-proxy.fueze.top": dockerHub,
+  "quay.fueze.top": "https://quay.io",
+  "gcr.fueze.top": "https://gcr.io",
+  "k8s-gcr.fueze.top": "https://k8s.gcr.io",
+  "k8s.fueze.top": "https://registry.k8s.io",
+  "ghcr.fueze.top": "https://ghcr.io",
+  "cloudsmith.fueze.top": "https://docker.cloudsmith.io",
+  "ecr.fueze.top": "https://public.ecr.aws",
 
   // staging
-  "docker-staging.libcuda.so": dockerHub,
+  "docker-staging.fueze.top": dockerHub,
 };
 
 function routeByHosts(host) {
@@ -72,12 +72,12 @@ async function handleRequest(request) {
       if (MODE == "debug") {
         headers.set(
           "Www-Authenticate",
-          `Bearer realm="http://${url.host}/v2/auth",service="cloudflare-docker-proxy"`
+          `Bearer realm="http://${url.host}/v2/auth",service="docker-proxy"`
         );
       } else {
         headers.set(
           "Www-Authenticate",
-          `Bearer realm="https://${url.hostname}/v2/auth",service="cloudflare-docker-proxy"`
+          `Bearer realm="https://${url.hostname}/v2/auth",service="docker-proxy"`
         );
       }
       return new Response(JSON.stringify({ message: "UNAUTHORIZED" }), {
